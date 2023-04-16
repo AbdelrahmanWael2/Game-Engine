@@ -24,7 +24,7 @@ class Game(
   private val submitButton = new JButton("Submit")
 
   // Setting main panel options
-  setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE)
+  setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE)
   setContentPane(mainPanel)
   mainPanel.setLayout(layoutManager)
   mainPanel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20))
