@@ -63,7 +63,8 @@ object TicTacToe {
   //return false if violated
   def controller(state:GameState):Boolean ={
     val columns = Array('a', 'b', 'c')
-
+    if(!(columns.contains(state.input(1))) || !state.input(0).isDigit || !(state.input.length==2))
+      return false
     //indices
     val x = state.input.substring(0, 1).toInt - 1
     val y = columns.indexOf(state.input(1), 0)
@@ -75,8 +76,7 @@ object TicTacToe {
     if (!(state.drawables(x)(y) == null))
       return false
 
-    if(!(columns.contains(state.input(1))) || !state.input(0).isDigit || !(state.input.length==2))
-      return false
+    
 
     if(state.turn % 2 == 0){
       state.drawables(x)(y) = Symbol(x, y, XSymbol)
