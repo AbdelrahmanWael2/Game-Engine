@@ -63,6 +63,19 @@ class MainMenu extends JFrame("GAMESENGINE.Game") {
     }
   }
 
+  val queensListener: ActionListener = new ActionListener {
+    def actionPerformed(e: ActionEvent): Unit = {
+      new Game(
+        "connect 4",
+        queens.gameInst(),
+        queens.controller,
+        queens.draw
+      )
+      setVisible(false)
+    }
+  }
+
   TicButton.addActionListener(ticListener)
   ConnectButton.addActionListener(connectListener)
+  QueensButton.addActionListener(queensListener)
 }
