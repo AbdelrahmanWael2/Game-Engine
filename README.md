@@ -1,7 +1,7 @@
 # Game-Engine
 Board Drawing Engine using JavaScript and Scala, Logic Game Solvers using Prolog 
 
-#Scala
+# Scala Implementation
 In out scala project, we made use of the feautures provided by functional programming,
 This is found in Higher-order functions & Pattern matching.
 Higher-order function such as in Game Class where a function is passed to Game and takes arugment of type
