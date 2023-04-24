@@ -2,6 +2,8 @@ package GAMESENGINE
 
 
 
+import GAMES.Queens.queens
+import GAMES.Connect4.connect
 import GAMES.TicTacToe.TicTacToe
 
 import java.awt.{Dimension, GridLayout}
