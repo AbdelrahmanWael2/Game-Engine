@@ -48,36 +48,36 @@ class MainMenu extends JFrame("GAMESENGINE.Game") {
 
   val ticListener: ActionListener = new ActionListener {
     def actionPerformed(e: ActionEvent): Unit = {
-      new Game("TicTacToe", TicTacToe.gameInst(), TicTacToe.controller, TicTacToe.draw)
+      new Game("TicTacToe", TicTacToe.controller, TicTacToe.draw)
       setVisible(false)
     }
   }
   
-  val connectListener: ActionListener = new ActionListener {
-    def actionPerformed(e: ActionEvent): Unit = {
-      new Game(
-        "connect 4",
-        connect.gameInst(),
-        connect.controller,
-        connect.draw
-      )
-      setVisible(false)
-    }
-  }
-
-  val queensListener: ActionListener = new ActionListener {
-    def actionPerformed(e: ActionEvent): Unit = {
-      new Game(
-        "connect 4",
-        queens.gameInst(),
-        queens.controller,
-        queens.draw
-      )
-      setVisible(false)
-    }
-  }
+//  val connectListener: ActionListener = new ActionListener {
+//    def actionPerformed(e: ActionEvent): Unit = {
+//      new Game(
+//        "connect 4",
+//        connect.gameInst(),
+//        connect.controller,
+//        connect.draw
+//      )
+//      setVisible(false)
+//    }
+//  }
+//
+//  val queensListener: ActionListener = new ActionListener {
+//    def actionPerformed(e: ActionEvent): Unit = {
+//      new Game(
+//        "connect 4",
+//        queens.gameInst(),
+//        queens.controller,
+//        queens.draw
+//      )
+//      setVisible(false)
+//    }
+//  }
 
   TicButton.addActionListener(ticListener)
-  ConnectButton.addActionListener(connectListener)
-  QueensButton.addActionListener(queensListener)
+  ///ConnectButton.addActionListener(connectListener)
+///  QueensButton.addActionListener(queensListener)
 }
