@@ -1,6 +1,6 @@
 package GAMES.TicTacToe
 
-import GAMESENGINE.{Drawable, GameState}
+import GAMESENGINE.Drawable
 
 import java.awt.{Color, Dimension, Font, Graphics, Image}
 import java.io.File
@@ -9,6 +9,14 @@ import javax.swing.JPanel
 
 object TicTacToe {
 
+
+  val drawables: Array[Array[Drawable]] = Array.ofDim[Drawable](3, 3)
+
+
+
+
+
+  var turn = 0
   //get pics
   private val XSymbol :Image =
     ImageIO.read(new File("src/main/scala/GAMES/TicTacToe/Assets/x.png"))
@@ -18,10 +26,7 @@ object TicTacToe {
     ImageIO.read(new File("src/main/scala/GAMES/TicTacToe/Assets/o.jpeg"))
       .getScaledInstance(140, 140, Image.SCALE_SMOOTH)
 
-  //new array of drawables
-  class TicTacToeState extends GameState {
-    this.drawables = Array.ofDim[Drawable](3, 3)
-  }
+
 
   private case class Symbol(a: Int, b: Int, sym: Image) extends Drawable {
     override var x: Int = a
@@ -29,9 +34,7 @@ object TicTacToe {
     override var img: Image = sym
   }
 
-  def gameInst():GameState = {
-    new TicTacToeState
-  }
+
 
   private def drawBoard(gfx: Graphics): Unit = {
     val font = new Font("default", Font.BOLD, 13)
@@ -61,31 +64,31 @@ object TicTacToe {
 
   //enforce game rules
   //return false if violated
-  def controller(state:GameState):Boolean ={
+  def controller(input:String):Boolean ={
     val columns = Array('a', 'b', 'c')
-    if(!(columns.contains(state.input(1))) || !state.input(0).isDigit || !(state.input.length==2))
+    if(!(columns.contains(input(1))) || !input(0).isDigit || !(input.length==2))
       return false
     //indices
-    val x = state.input.substring(0, 1).toInt - 1
-    val y = columns.indexOf(state.input(1), 0)
+    val x = input.substring(0, 1).toInt - 1
+    val y = columns.indexOf(input(1), 0)
 
     if(x > 2 || y > 2)
       return false
 
     //already exist
-    if (!(state.drawables(x)(y) == null))
+    if (!(drawables(x)(y) == null))
       return false
 
     
 
-    if(state.turn % 2 == 0){
-      state.drawables(x)(y) = Symbol(x, y, XSymbol)
+    if(turn % 2 == 0){
+      drawables(x)(y) = Symbol(x, y, XSymbol)
     }else{
-      state.drawables(x)(y) = Symbol(x, y, OSymbol)
+      drawables(x)(y) = Symbol(x, y, OSymbol)
     }
 
     //toggle turn
-    state.turn = state.turn ^ 1
+    turn = turn ^ 1
     true
   }
 
@@ -95,12 +98,12 @@ object TicTacToe {
     if (d != null)
       gfx.drawImage(d.img, 10 + d.x * 165, 15 + d.y * 165, null)
 
-  def draw(state: GameState): JPanel = {
+  def draw(input: String): JPanel = {
     val panel = new JPanel() {
       override def paint(gfx: Graphics): Unit = {
         super.paintComponent(gfx)
         drawBoard(gfx)
-        state.drawables.foreach(_.foreach(drawSymbol(_, gfx)))
+        drawables.foreach(_.foreach(drawSymbol(_, gfx)))
       }
     }
     panel setPreferredSize new Dimension(800, 500)
