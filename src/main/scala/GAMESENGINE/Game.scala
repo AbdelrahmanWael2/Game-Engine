@@ -10,15 +10,15 @@ import javax.swing.{BorderFactory, JFrame, JLabel, JPanel, SwingConstants}
 
 class Game(
             val name: String,
-            val gameState: GameState,
-            val controller: GameState => Boolean,
-            val draw: GameState => JPanel
+
+            val controller: String => Boolean,
+            val draw: String => JPanel
           ) extends JFrame(name) {
   // Initializing Swing Components
   private val turnLabel = new JLabel("Player 1 Turn", SwingConstants.CENTER)
   private val mainPanel = new JPanel()
   private val layoutManager = new BorderLayout()
-  private val gamePanel = draw(gameState)
+  private val gamePanel = draw(input)
   private val statusMsg = new JLabel("", SwingConstants.LEFT)
   private val inputField = new JTextField()
   private val submitButton = new JButton("Submit")
@@ -50,10 +50,12 @@ class Game(
   pack()
   setVisible(true)
   setResizable(false)
+  var input = ""
+  var turn = 0
 
   val e: ActionListener = new ActionListener {
     override def actionPerformed(event: ActionEvent): Unit = {
-      gameState.input = inputField.getText
+      input = inputField.getText
       update()
     }
   }
@@ -62,15 +64,21 @@ class Game(
   inputField.addActionListener(e)
 
   def update(): Unit = {
-    if (controller(gameState)) {
+    if (controller(input)) {
       statusMsg.setText("")
       gamePanel.repaint()
-      // gameState.turn = gameState.turn + 1
-      if (gameState.turn % 2 == 0) turnLabel.setText("Player 1 Turn")
-      else turnLabel.setText("Player 2 Turn")
-    } else {
-      statusMsg.setText("Invalid Move")
-    }
+      turn += 1
+
+      if (turn % 2 == 0) {
+        turnLabel.setText("Player 1 Turn")
+      }
+      else {
+        turnLabel.setText("Player 2 Turn")
+      }
+    }else {
+            statusMsg.setText("Invalid Move")
+          }
+
     inputField.setText("")
   }
 }
